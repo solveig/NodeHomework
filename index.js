@@ -1,7 +1,10 @@
 /*
 * Title: Homework Assignment #1 in Node.js Master Class, Building a RESTful API
 * Description: A RESTful JSON API that listens on a port of your choice
-*              When someone post anything to the route/hello, you should return a welcome mesage in JSON format. 
+*              and when someone post anything to the route/hello, you return a welcome mesage in JSON format. 
+* Testing: Start server in terminal:  node index.js
+*   Test1: http://localhost:3000/hello    -- Result1: {"message":"Welcome everyone to Norway!"}
+*   Test2: http://localhost:3000/x        -- Result2: {"message":"No handler found!"}        
 * Author: Solveig Løvhaug
 * Date: 09/27/18
 */
@@ -14,7 +17,8 @@ const http = require('http'),
   url = require('url'),
   StringDecoder = require('string_decoder').StringDecoder,
   myPort = 3000,
-  myWelcomeJSON = {'message' : 'Welcome everyone!'},
+  myWelcome = {'message' : 'Welcome everyone to Norway'},
+  errInfo = {'message' : 'No handler found!'},
   okStatus = 200,
   notFoundStatus = 404;
 
@@ -51,7 +55,8 @@ const unifiedServer = function(req,res){
 
 		// Construct the data object to send to the handler
 		const data = {
-			'welcome' : myWelcomeJSON
+			'welcome' : myWelcome,
+			'errInfo' : errInfo
 		};
 
 		// Route the request to the handler specified in the router
@@ -77,12 +82,13 @@ const handlers = {
 		callback(okStatus,data.welcome);
 	},
 	notFound: function(data,callback){
-		callback(notFoundStatus);
+		callback(notFoundStatus,data.errInfo);
 	}
 };
 
 // Define a request loader
 const router = {
-	'hello' :handlers.hello
+	'hello': handlers.hello,
+	'notFound': handlers.notFound
 };
 
