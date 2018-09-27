@@ -6,7 +6,7 @@ A RESTful JSON API that listens on a port of your choice and when someone post a
 #### Testing
  Start server in terminal: **node index.js**  ![-- Result](nodejs.png)
    ##### Test1: 
-   http://localhost:3000/hello    -- Result1: {"message":"Welcome everyone to Norway!"}
+   http://localhost:3000/hello    ![**Result1**](test1.png)
    ###### Test2: 
-   http://localhost:3000/x        -- Result2: {"message":"No handler found!"}        
+   http://localhost:3000/x        ![**-- Result2**](test2.png)
  
